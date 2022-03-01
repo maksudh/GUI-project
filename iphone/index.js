@@ -63,10 +63,9 @@ export default class Iphone extends Component {
 		// display all weather data
 		return (
 			<div class={ style.container }>
-				<div class={style.greetings}>
 				<h1>{this.whatGreeting()}</h1>
 				<h2>Current conditions are {this.state.cond}</h2>
-				</div>
+				<div><img id = 'IMG'/></div>
 				<div class={ style.header }>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<span class={ tempStyles }>{ this.state.temp }</span>
@@ -89,6 +88,7 @@ export default class Iphone extends Component {
 		var min =  Math.round(parsed_json['main']['temp_min']);
 		var max = Math.round(parsed_json['main']['temp_max']);
 		var windSpeed = parsed_json['wind']['speed'];
+		var icon = parsed_json['weather']['0']['icon']
 
 
 		// set states for fields so they could be rendered later on
@@ -99,6 +99,9 @@ export default class Iphone extends Component {
 			min : min,
 			max : max,
 			wind : windSpeed,
+			image : icon,
 		});
+		document.getElementById('IMG').src = 'https://openweathermap.org/img/wn/' + this.state.image + '@2x.png';
+		console.log(document.getElementById('IMG').src);
 	}
 }
