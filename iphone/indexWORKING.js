@@ -23,9 +23,7 @@ export default class Iphone extends Component {
 		// temperature state
 		this.state.temp = "";
 		// button display state
-		this.setState({});
-		this.fetchWeatherData();
-		this.fetchHourly();
+		this.setState({ display: true });
 	}
 
 	// a call to fetch weather data via wunderground
@@ -57,7 +55,7 @@ export default class Iphone extends Component {
 
 	//function to deal with the hourly openweather API call
 	parseHResponse = (parsed_json) => {
-        var hourlyTemp = parsed_json['hourly']['2']['temp'];
+        var hourlyTemp = parsed_json['hourly']['temp'];
 
         // set states for fields so they could be rendered later on
         this.setState({
@@ -114,6 +112,7 @@ export default class Iphone extends Component {
 		// display all weather data
 		return (
 			<div class={ style.container }>
+				<div>{this.fetchHourly}</div>
 				<h1>{this.whatGreeting()}</h1>
 				<h2>Current conditions are {this.state.cond}</h2>
 				<div><img id = 'IMG'/></div>
@@ -123,10 +122,13 @@ export default class Iphone extends Component {
 					<div class={ style.details }>
 						<p>Min: {this.state.min} Max: {this.state.max}</p>
 						<p>Current humidity {this.state.humidity}</p>
-						<p>TEST HR 2 TEMP:{this.state.hourlyTemp}</p>
+						<p>This is where hourly temp should be:{this.state.hourlyTemp}</p>
 					</div>
 				</div> 
 				<div class={ style.details }></div>
+				<div class= { style_iphone.container }> 
+					{ this.state.display ? <Button class={ style_iphone.button } clickFunction={this.fetchWeatherData }/ > : null }
+				</div>
 			</div>
 		);
 	}
