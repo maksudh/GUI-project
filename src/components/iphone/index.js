@@ -78,6 +78,11 @@ export default class Iphone extends Component {
 		var HT3 = Math.round(parsed_json['hourly']['3']['temp']);
 		var HT4 = Math.round(parsed_json['hourly']['4']['temp']);
 		var HT5 = Math.round(parsed_json['hourly']['5']['temp']);
+		var HT6 = Math.round(parsed_json['hourly']['6']['temp']);
+		var HT7 = Math.round(parsed_json['hourly']['7']['temp']);
+		var HT8 = Math.round(parsed_json['hourly']['8']['temp']);
+		var HT9 = Math.round(parsed_json['hourly']['9']['temp']);
+		var HT10 = Math.round(parsed_json['hourly']['10']['temp']);
 
 		var dtime1 = new Date((parsed_json['daily']['1']['dt'])*1000);
 		var dow1 = dtime1.toLocaleString("en-US", {weekday: "short"});
@@ -94,23 +99,35 @@ export default class Iphone extends Component {
 		var dtime5 = new Date((parsed_json['daily']['5']['dt'])*1000);
 		var dow5 = dtime5.toLocaleString("en-US", {weekday: "short"});
 
+		var dtime6 = new Date((parsed_json['daily']['6']['dt'])*1000);
+		var dow6 = dtime6.toLocaleString("en-US", {weekday: "short"});
+
+		var dtime7 = new Date((parsed_json['daily']['7']['dt'])*1000);
+		var dow7 = dtime7.toLocaleString("en-US", {weekday: "short"});
+
 		var d1max = Math.round(parsed_json['daily']['1']['temp']['max']);
 		var d2max = Math.round(parsed_json['daily']['2']['temp']['max']);
 		var d3max = Math.round(parsed_json['daily']['3']['temp']['max']);
 		var d4max = Math.round(parsed_json['daily']['4']['temp']['max']);
 		var d5max = Math.round(parsed_json['daily']['5']['temp']['max']);
+		var d6max = Math.round(parsed_json['daily']['6']['temp']['max']);
+		var d7max = Math.round(parsed_json['daily']['7']['temp']['max']);
 
 		var d1min = Math.round(parsed_json['daily']['1']['temp']['min']);
 		var d2min = Math.round(parsed_json['daily']['2']['temp']['min']);
 		var d3min = Math.round(parsed_json['daily']['3']['temp']['min']);
 		var d4min = Math.round(parsed_json['daily']['4']['temp']['min']);
 		var d5min = Math.round(parsed_json['daily']['5']['temp']['min']);
+		var d6min = Math.round(parsed_json['daily']['6']['temp']['min']);
+		var d7min = Math.round(parsed_json['daily']['7']['temp']['min']);
 
 		var di1 = parsed_json['daily']['1']['weather']['0']['icon'];
 		var di2 = parsed_json['daily']['2']['weather']['0']['icon'];
 		var di3 = parsed_json['daily']['3']['weather']['0']['icon'];
 		var di4 = parsed_json['daily']['4']['weather']['0']['icon'];
 		var di5 = parsed_json['daily']['5']['weather']['0']['icon'];
+		var di6 = parsed_json['daily']['6']['weather']['0']['icon'];
+		var di7 = parsed_json['daily']['7']['weather']['0']['icon'];
 
 
 		var icon1 = parsed_json['hourly']['1']['weather']['0']['icon'];
@@ -118,12 +135,22 @@ export default class Iphone extends Component {
 		var icon3 = parsed_json['hourly']['3']['weather']['0']['icon'];
 		var icon4 = parsed_json['hourly']['4']['weather']['0']['icon'];
 		var icon5 = parsed_json['hourly']['5']['weather']['0']['icon'];
+		var icon6 = parsed_json['hourly']['6']['weather']['0']['icon'];
+		var icon7 = parsed_json['hourly']['7']['weather']['0']['icon'];
+		var icon8 = parsed_json['hourly']['8']['weather']['0']['icon'];
+		var icon9 = parsed_json['hourly']['9']['weather']['0']['icon'];
+		var icon10 = parsed_json['hourly']['10']['weather']['0']['icon'];
 
 		var time1 = this.formatDate(new Date((parsed_json['hourly']['1']['dt']+this.state.timezone) * 1000));
 		var time2 = this.formatDate(new Date((parsed_json['hourly']['2']['dt']+this.state.timezone) * 1000));
 		var time3 = this.formatDate(new Date((parsed_json['hourly']['3']['dt']+this.state.timezone) * 1000));
 		var time4 = this.formatDate(new Date((parsed_json['hourly']['4']['dt']+this.state.timezone) * 1000));
 		var time5 = this.formatDate(new Date((parsed_json['hourly']['5']['dt']+this.state.timezone) * 1000));
+		var time6 = this.formatDate(new Date((parsed_json['hourly']['6']['dt']+this.state.timezone) * 1000));
+		var time7 = this.formatDate(new Date((parsed_json['hourly']['7']['dt']+this.state.timezone) * 1000));
+		var time8 = this.formatDate(new Date((parsed_json['hourly']['8']['dt']+this.state.timezone) * 1000));
+		var time9 = this.formatDate(new Date((parsed_json['hourly']['9']['dt']+this.state.timezone) * 1000));
+		var time10 = this.formatDate(new Date((parsed_json['hourly']['10']['dt']+this.state.timezone) * 1000));
 
 		var wind = parsed_json['hourly']['0']['wind_speed'];
 		var pressure = parsed_json['hourly']['0']['pressure'];
@@ -138,48 +165,73 @@ export default class Iphone extends Component {
 				HT3 : HT3,
 				HT4 : HT4,
 				HT5 : HT5,
+				HT6 : HT6,
+				HT7 : HT7,
+				HT8 : HT8,
+				HT9 : HT9,
+				HT10 : HT10,
 
 				d1max : d1max,
 				d2max : d2max,
 				d3max : d3max,
 				d4max : d4max,
 				d5max : d5max,
+				d6max : d6max,
+				d7max : d7max,
 
 				dtime1 : dtime1,
 				dtime2 : dtime2,
 				dtime3 : dtime3,
 				dtime4 : dtime4,
 				dtime5 : dtime5,
+				dtime6 : dtime6,
+				dtime7 : dtime7,
 
 				dow1 : dow1,
 				dow2 : dow2,
 				dow3 : dow3,
 				dow4 : dow4,
 				dow5 : dow5,
+				dow6 : dow6,
+				dow7 : dow7,
 
 				d1min : d1min,
 				d2min : d2min,
 				d3min : d3min,
 				d4min : d4min,
 				d5min : d5min,
+				d6min : d6min,
+				d7min : d7min,
 
 				di1 : di1,
 				di2 : di2,
 				di3 : di3,
 				di4 : di4,
 				di5 : di5,
+				di6 : di6,
+				di7 : di7,
 
-				icon1  : icon1,
-				icon2  : icon2,
-				icon3  : icon3,
-				icon4  : icon4,
-				icon5  : icon5,
+				icon1 : icon1,
+				icon2 : icon2,
+				icon3 : icon3,
+				icon4 : icon4,
+				icon5 : icon5,
+				icon6 : icon6,
+				icon7 : icon7,
+				icon8 : icon8,
+				icon9 : icon9,
+				icon10 : icon10,
 
 				time1 : time1,
 				time2 : time2,
 				time3 : time3,
 				time4 : time4,
 				time5 : time5,
+				time6 : time6,
+				time7 : time7,
+				time8 : time8,
+				time9 : time9,
+				time10 : time10,
 
 				wind: wind,
 				pressure : pressure,
@@ -201,7 +253,21 @@ export default class Iphone extends Component {
 
 		document.getElementById('hour5').src = 'https://openweathermap.org/img/wn/' + this.state.icon5 +'@2x.png';
 		console.log(document.getElementById('hour5').src)
+		
+		document.getElementById('hour6').src = 'https://openweathermap.org/img/wn/' + this.state.icon6 +'@2x.png';
+		console.log(document.getElementById('hour6').src)
+		
+		document.getElementById('hour7').src = 'https://openweathermap.org/img/wn/' + this.state.icon7 +'@2x.png';
+		console.log(document.getElementById('hour7').src)
+		
+		document.getElementById('hour8').src = 'https://openweathermap.org/img/wn/' + this.state.icon8 +'@2x.png';
+		console.log(document.getElementById('hour8').src)
 
+		document.getElementById('hour9').src = 'https://openweathermap.org/img/wn/' + this.state.icon9 +'@2x.png';
+		console.log(document.getElementById('hour9').src)
+
+		document.getElementById('hour10').src = 'https://openweathermap.org/img/wn/' + this.state.icon10 +'@2x.png';
+		console.log(document.getElementById('hour10').src)
 
 		
 		document.getElementById('day1').src = 'https://openweathermap.org/img/wn/' + this.state.di1 +'@2x.png';
@@ -218,6 +284,12 @@ export default class Iphone extends Component {
 
 		document.getElementById('day5').src = 'https://openweathermap.org/img/wn/' + this.state.di5 +'@2x.png';
 		console.log(document.getElementById('day5').src);
+
+		document.getElementById('day6').src = 'https://openweathermap.org/img/wn/' + this.state.di6 +'@2x.png';
+		console.log(document.getElementById('day6').src);
+
+		document.getElementById('day7').src = 'https://openweathermap.org/img/wn/' + this.state.di7 +'@2x.png';
+		console.log(document.getElementById('day7').src);
   }
 
 	parseResponse = (parsed_json) => {
@@ -300,7 +372,7 @@ export default class Iphone extends Component {
 		else if (this.state.cond.includes("sun") || this.state.cond.includes("clear")){
 			return bg[2]
 		}
-		else if (this.state.cond.includes("cloud")){
+		else if (this.state.cond.includes("cloud") || this.state.cond.includes("mist")){
 			return bg[3]
 		}
 	}
@@ -311,6 +383,8 @@ export default class Iphone extends Component {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 		
 		// display all weather data
+
+		//**********ICONS NOT WORKING FOR DAILY WEATHER MIN AND MAX, NOT SURE WHY ****************
 		return (
 
 
@@ -356,6 +430,31 @@ export default class Iphone extends Component {
 							<img id = "hour5"/>
 							<p>{this.state.HT5}°</p>
 						</div>
+						<div class = {style.time}>
+							<p>{this.state.time6}</p>
+							<img id = "hour6"/>
+							<p>{this.state.HT6}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time7}</p>
+							<img id = "hour7"/>
+							<p>{this.state.HT7}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time8}</p>
+							<img id = "hour8"/>
+							<p>{this.state.HT8}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time9}</p>
+							<img id = "hour9"/>
+							<p>{this.state.HT9}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time10}</p>
+							<img id = "hour10"/>
+							<p>{this.state.HT10}°</p>
+						</div>
 					</div>
 					<div class = {style.timeContainer}>
 						<p>Air pressure: {this.state.pressure}</p>
@@ -367,7 +466,7 @@ export default class Iphone extends Component {
 						<div class = {style.time}>
 							<p>{this.state.dow1}</p>
 							<img id = "day1"/>
-							<p>Max:{this.state.d1max}°</p>
+							<p><img id = "up1"/> {this.state.d1max}°</p>
 							<p>Min:{this.state.d1min}°</p>
 						</div>
 						<div class = {style.time}>
@@ -393,6 +492,18 @@ export default class Iphone extends Component {
 							<img id = "day5"/>
 							<p>Max:{this.state.d5max}°</p>
 							<p>Min:{this.state.d5min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow6}</p>
+							<img id = "day6"/>
+							<p>Max:{this.state.d6max}°</p>
+							<p>Min:{this.state.d6min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow7}</p>
+							<img id = "day7"/>
+							<p>Max:{this.state.d7max}°</p>
+							<p>Min:{this.state.d7min}°</p>
 						</div>
 					</div>
 					<div class={ style.details }></div>
