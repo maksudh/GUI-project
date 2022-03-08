@@ -318,8 +318,6 @@ export default class Iphone extends Component {
 		document.getElementById('IMG').src = 'https://openweathermap.org/img/wn/' + this.state.image +'@2x.png';
 		console.log(document.getElementById('IMG').src);
 		document.getElementById('background').style.backgroundImage =  "url(../../assets/backgrounds/" + this.pickBackground() + ".jpg)";
-		document.getElementById('down1').src = "../../assets/icons/down1.png";
-		document.getElementById('up1').src = "../../assets/icons/up1.png";
 
 		this.fetchHourly(this.state.lat, this.state.lon);
 	}
@@ -401,7 +399,7 @@ export default class Iphone extends Component {
 					<div class={ style.header }>
 						<span class={ tempStyles }>{ this.state.temp }</span>
 						<div class={ style.details}>
-							<p><img id = 'down1'/> : {this.state.min}° <img id = 'up1'/> : {this.state.max}°</p>
+							<p><img id = 'dmain' src = "../../assets/icons/dmain.png"/> : {this.state.min}° <img id = 'umain' src = "../../assets/icons/umain.png"/> : {this.state.max}°</p>
 						</div>
 					</div>
 					<div class = {style.timeContainer}>
@@ -466,44 +464,44 @@ export default class Iphone extends Component {
 						<div class = {style.time}>
 							<p>{this.state.dow1}</p>
 							<img id = "day1"/>
-							<p><img id = "up1"/> {this.state.d1max}°</p>
-							<p>Min:{this.state.d1min}°</p>
+							<p><img id = "up2" src='../../assets/icons/up2.png'/> {this.state.d1max}°</p>
+							<p><img id = "down2" src='../../assets/icons/down2.png'/> {this.state.d1min}°</p>
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow2}</p>
 							<img id = "day2"/>
-							<p>Max:{this.state.d2max}°</p>
-							<p>Min:{this.state.d2min}°</p>	
+							<p><img id = "up3" src='../../assets/icons/up3.png'/> {this.state.d2max}°</p>
+							<p><img id = "down3" src='../../assets/icons/down3.png'/> {this.state.d2min}°</p>	
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow3}</p>
 							<img id = "day3"/>
-							<p>Max:{this.state.d3max}°</p>
-							<p>Min:{this.state.d3min}°</p>
+							<p><img id = "up4" src='../../assets/icons/up4.png'/> {this.state.d3max}°</p>
+							<p><img id = "down4" src='../../assets/icons/down4.png'/> {this.state.d3min}°</p>
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow4}</p>
 							<img id = "day4"/>
-							<p>Max:{this.state.d4max}°</p>
-							<p>Min:{this.state.d4min}°</p>
+							<p><img id = "up5" src='../../assets/icons/up5.png'/> {this.state.d4max}°</p>
+							<p><img id = "down5" src='../../assets/icons/down5.png'/> {this.state.d4min}°</p>
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow5}</p>
 							<img id = "day5"/>
-							<p>Max:{this.state.d5max}°</p>
-							<p>Min:{this.state.d5min}°</p>
+							<p><img id = "up6" src='../../assets/icons/up6.png'/> {this.state.d5max}°</p>
+							<p><img id = "down6" src='../../assets/icons/down6.png'/> {this.state.d5min}°</p>
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow6}</p>
 							<img id = "day6"/>
-							<p>Max:{this.state.d6max}°</p>
-							<p>Min:{this.state.d6min}°</p>
+							<p><img id = "up7" src='../../assets/icons/up7.png'/> {this.state.d6max}°</p>
+							<p><img id = "down7" src='../../assets/icons/down7.png'/> {this.state.d6min}°</p>
 						</div>
 						<div class = {style.time}>
 							<p>{this.state.dow7}</p>
 							<img id = "day7"/>
-							<p>Max:{this.state.d7max}°</p>
-							<p>Min:{this.state.d7min}°</p>
+							<p><img id = "up8" src='../../assets/icons/up8.png'/> {this.state.d7max}°</p>
+							<p><img id = "down8" src='../../assets/icons/down8.png'/> {this.state.d7min}°</p>
 						</div>
 					</div>
 					<div class={ style.details }></div>
