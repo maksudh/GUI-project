@@ -156,6 +156,10 @@ export default class Iphone extends Component {
 		var pressure = parsed_json['hourly']['0']['pressure'];
 		var humidity = parsed_json['hourly']['0']['humidity'];
 		var uv = parsed_json['hourly']['0']['uvi'];
+		var percipitation = parsed_json['hourly']['0']['pop']
+		var clouds = parsed_json['hourly']['0']['clouds'];
+		var visibility = parsed_json['hourly']['0']['visibility'];
+		var dew = parsed_json['hourly']['0']['dew_point'];
 
 
 		// set states for fields so they could be rendered later on
@@ -236,7 +240,11 @@ export default class Iphone extends Component {
 				wind: wind,
 				pressure : pressure,
 				humidity : humidity,
-				uv : uv
+				uv : uv,
+				percipitation : percipitation,
+				clouds : clouds,
+				visibility : visibility,
+				dew : dew,
 
 		});
 		document.getElementById('hour1').src = 'https://openweathermap.org/img/wn/' + this.state.icon1 +'@2x.png';
@@ -455,10 +463,18 @@ export default class Iphone extends Component {
 						</div>
 					</div>
 					<div class = {style.timeContainer}>
-						<p>Air pressure: {this.state.pressure}</p>
-						<p>Wind: {this.state.wind}mph</p>
-						<p>UV index: {this.state.uv}</p>
-						<p>Humidity: {this.state.humidity}</p>
+						<div class ={style.info}>
+							<p>Percipitation: {this.state.percipitation}%</p>
+							<p>Wind: {this.state.wind} mps</p>
+							<p>UV index: {this.state.uv}</p>
+							<p>Humidity: {this.state.humidity}%</p>
+						</div>
+						<div class ={style.infoInner}>
+							<p>Air pressure: {this.state.pressure} hPa</p>
+							<p>Clouds: {this.state.clouds}%</p>
+							<p>visibility: {this.state.visibility}m</p>
+							<p>Dew point: {this.state.dew}°</p>
+						</div>
 					</div>
 					<div class = {style.timeContainer}>
 						<div class = {style.time}>
