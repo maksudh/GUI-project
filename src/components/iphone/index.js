@@ -389,8 +389,6 @@ export default class Iphone extends Component {
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
 		
 		// display all weather data
-
-		//**********ICONS NOT WORKING FOR DAILY WEATHER MIN AND MAX, NOT SURE WHY ****************
 		return (
 
 
