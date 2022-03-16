@@ -407,7 +407,7 @@ export default class Iphone extends Component {
 					<div class={ style.header }>
 						<span class={ tempStyles }>{ this.state.temp }</span>
 						<div class={ style.details}>
-							<p><img id = 'dmain' src = "../../assets/icons/down1.png"/> : {this.state.min}° <img id = 'umain' src = "../../assets/icons/up1.png"/> : {this.state.max}°</p>
+							<p><img id = 'dmain' src = "../../assets/icons/down1.png"/>  {this.state.min}° <img id = 'umain' src = "../../assets/icons/up1.png"/>  {this.state.max}°</p>
 						</div>
 					</div>
 					<div class = {style.timeContainer}>
@@ -472,7 +472,7 @@ export default class Iphone extends Component {
 						<div class ={style.infoInner}>
 							<p>Air pressure: {this.state.pressure} hPa</p>
 							<p>Clouds: {this.state.clouds}%</p>
-							<p>visibility: {this.state.visibility}m</p>
+							<p>Visibility: {this.state.visibility}m</p>
 							<p>Dew point: {this.state.dew}°</p>
 						</div>
 					</div>
