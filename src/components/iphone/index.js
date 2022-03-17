@@ -1,9 +1,10 @@
 // import preact
-import { h, render, Component } from 'preact';
+import { h, render, Component, useRef } from 'preact';
 // import stylesheets for ipad & button
 import style from './style';
 // import jquery for API calls
 import $ from 'jquery';
+import SearchBar from '../SearchBar/searchbar';
 
 //background names
 const bg = [
@@ -13,7 +14,6 @@ const bg = [
 	"cloudy",
 	"snowy"
 ];
-
 
 //greetings for homepage
 const greetings = [
@@ -387,13 +387,12 @@ export default class Iphone extends Component {
 	render() {
 		// check if temperature data is fetched, if so add the sign styling to the page
 		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-		
 		// display all weather data
 		return (
 
-
+			
 			<div class={ style.container } id = "background">
-					<input type = "text" class = "search-bar" placeholder = "Enter your city" onKeyDown = {e => this.fetchWeatherData2(e.target.value)}></input>
+					<div class={style.searchbar}><SearchBar class="search-bar" enterFunction={ e => this.fetchWeatherData2(e.target.value)}/></div>
 					<div class={ style.city }>{ this.state.locate }</div>
 					<div class= { style.greetings }>
 						<h1>{this.whatGreeting()}</h1>
@@ -476,7 +475,7 @@ export default class Iphone extends Component {
 					</div>
 					<div class = {style.timeContainer}>
 						<div class = {style.time}>
-							<p>{this.state.dow1}</p>
+							<p id ="more">{this.state.dow1}</p>
 							<img id = "day1"/>
 							<p><img id = "up2" src='../../assets/icons/up1.png'/> {this.state.d1max}°</p>
 							<p><img id = "down2" src='../../assets/icons/down1.png'/> {this.state.d1min}°</p>
