@@ -47,7 +47,7 @@ export default class Iphone extends Component {
 
 	//gets hourly data from openweathermap
 	fetchHourly(latitude, longitude){
-		var url = "http://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,alerts&units=Metric&appid=fe32d7527ce0cb77ed6216e849f63148";
+		var url = "http://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exclude=current,minutely,alerts&units=Metric&appid=a6d681a3dba55941eeb547ea241befa1";
 
 		$.ajax({
 			url: url,
@@ -61,7 +61,7 @@ export default class Iphone extends Component {
 	fetchWeatherData2(query){
 		if(event.key === 'Enter'){
 			var a = "http://api.openweathermap.org/data/2.5/weather?q="
-			var b = "&units=metric&APPID=fe32d7527ce0cb77ed6216e849f63148";
+			var b = "&units=metric&APPID=a6d681a3dba55941eeb547ea241befa1";
 			$.ajax({
 				url: a + query + b,
 				dataType: "jsonp",
@@ -69,6 +69,228 @@ export default class Iphone extends Component {
 				error : function(req, err){ console.log('API call failed ' + err); }
 			})
 		}
+	}
+
+	//function for formatting date
+	formatDate = (date) => {
+		var hours = date.getHours();
+		var ampm = hours >= 12 ? 'pm' : 'am';
+		hours = hours % 12;
+		hours = hours ? hours : 12;
+		var strTime = hours + ' ' + ampm;
+		return strTime;
+	}
+
+	//checking time of day for greeting
+	isDay() {
+		if (!!this.state.timezone){
+			var utc = Date.now() + (new Date().getTimezoneOffset()*60000) + (1000 * this.state.timezone);
+			var fullDate = new Date(utc);
+			var hour = fullDate.getHours();
+			return (hour > 5 && hour < 17);
+		} else {
+			var utc = Date.now() + (new Date().getTimezoneOffset()*60000) + (1000 );
+			var fullDate = new Date(utc);
+			var hour = fullDate.getHours();
+			return (hour > 5 && hour < 17);
+		}
+	}
+
+	//Choosing the greeting message based on time
+	whatGreeting(){
+		if (!(this.isDay())){
+			return greetings[0];
+		}
+		else{
+			return greetings[1];
+		}
+	}
+
+	pickBackground() {
+		if (!(this.isDay())){
+			return bg[1];
+		}
+		else if (this.state.cond.includes("rain") || this.state.cond.includes("drizzle")){
+			return bg[0]
+		}
+		else if (this.state.cond.includes("snow")){
+			return bg[4]
+		}
+		else if (this.state.cond.includes("sun") || this.state.cond.includes("clear")){
+			return bg[2]
+		}
+		else if (this.state.cond.includes("cloud") || this.state.cond.includes("mist")){
+			return bg[3]
+		}
+	}
+
+	// the main render method for the iphone component
+	render() {
+		// check if temperature data is fetched, if so add the sign styling to the page
+		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
+		// display all weather data
+		return (
+
+			
+			<div class={ style.container } id = "background">
+					<div class={style.searchbar}><SearchBar class="search-bar" enterFunction={ e => this.fetchWeatherData2(e.target.value)}/></div>
+					<div class={ style.city }>{ this.state.locate }</div>
+					<div class= { style.greetings }>
+						<h1>{this.whatGreeting()}</h1>
+						<h2>Current conditions are {this.state.cond}</h2>
+					</div>
+					<div class={style.city}>
+						<img id = 'IMG'/>
+					</div>
+					<div class={ style.header }>
+						<span class={ tempStyles }>{ this.state.temp }</span>
+						<div class={ style.details}>
+							<p><img id = 'dmain' src = "../../assets/icons/down1.png"/>  {this.state.min}° <img id = 'umain' src = "../../assets/icons/up1.png"/>  {this.state.max}°</p>
+						</div>
+					</div>
+					<div class = {style.timeContainer}>
+						<div class = {style.time}>
+							<p>{this.state.time1}</p>
+							<img id = "hour1"/>
+							<p>{this.state.HT1}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time2}</p>
+							<img id = "hour2"/>
+							<p>{this.state.HT2}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time3}</p>
+							<img id = "hour3"/>
+							<p>{this.state.HT3}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time4}</p>
+							<img id = "hour4"/>
+							<p>{this.state.HT4}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time5}</p>
+							<img id = "hour5"/>
+							<p>{this.state.HT5}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time6}</p>
+							<img id = "hour6"/>
+							<p>{this.state.HT6}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time7}</p>
+							<img id = "hour7"/>
+							<p>{this.state.HT7}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time8}</p>
+							<img id = "hour8"/>
+							<p>{this.state.HT8}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time9}</p>
+							<img id = "hour9"/>
+							<p>{this.state.HT9}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.time10}</p>
+							<img id = "hour10"/>
+							<p>{this.state.HT10}°</p>
+						</div>
+					</div>
+					<div class = {style.timeContainer}>
+						<div class ={style.info}>
+							<p>Percipitation: {this.state.percipitation}%</p>
+							<p>Wind: {this.state.wind} mps</p>
+							<p>UV index: {this.state.uv}</p>
+							<p>Humidity: {this.state.humidity}%</p>
+						</div>
+						<div class ={style.infoInner}>
+							<p>Air pressure: {this.state.pressure} hPa</p>
+							<p>Clouds: {this.state.clouds}%</p>
+							<p>Visibility: {this.state.visibility}m</p>
+							<p>Dew point: {this.state.dew}°</p>
+						</div>
+					</div>
+					<div class = {style.timeContainer}>
+						<div class = {style.time}>
+							<p>{this.state.dow1}</p>
+							<img id = "day1"/>
+							<p><img id = "up2" src='../../assets/icons/up1.png'/> {this.state.d1max}°</p>
+							<p><img id = "down2" src='../../assets/icons/down1.png'/> {this.state.d1min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow2}</p>
+							<img id = "day2"/>
+							<p><img id = "up3" src='../../assets/icons/up1.png'/> {this.state.d2max}°</p>
+							<p><img id = "down3" src='../../assets/icons/down1.png'/> {this.state.d2min}°</p>	
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow3}</p>
+							<img id = "day3"/>
+							<p><img id = "up4" src='../../assets/icons/up1.png'/> {this.state.d3max}°</p>
+							<p><img id = "down4" src='../../assets/icons/down1.png'/> {this.state.d3min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow4}</p>
+							<img id = "day4"/>
+							<p><img id = "up5" src='../../assets/icons/up1.png'/> {this.state.d4max}°</p>
+							<p><img id = "down5" src='../../assets/icons/down1.png'/> {this.state.d4min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow5}</p>
+							<img id = "day5"/>
+							<p><img id = "up6" src='../../assets/icons/up1.png'/> {this.state.d5max}°</p>
+							<p><img id = "down6" src='../../assets/icons/down1.png'/> {this.state.d5min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow6}</p>
+							<img id = "day6"/>
+							<p><img id = "up7" src='../../assets/icons/up1.png'/> {this.state.d6max}°</p>
+							<p><img id = "down7" src='../../assets/icons/down1.png'/> {this.state.d6min}°</p>
+						</div>
+						<div class = {style.time}>
+							<p>{this.state.dow7}</p>
+							<img id = "day7"/>
+							<p><img id = "up8" src='../../assets/icons/up1.png'/> {this.state.d7max}°</p>
+							<p><img id = "down8" src='../../assets/icons/down1.png'/> {this.state.d7min}°</p>
+						</div>
+					</div>
+					<div class={ style.details }></div>
+			</div>
+		);
+	}
+
+	parseResponse = (parsed_json) => {
+		var location = parsed_json['name'];
+		var temp_c = Math.round(parsed_json['main']['temp']);
+		var conditions = parsed_json['weather']['0']['description'];
+		var icon = parsed_json['weather']['0']['icon'];
+		var max = Math.round(parsed_json['main']['temp_max']);
+		var min = Math.round(parsed_json['main']['temp_min']);
+		var timezone = parsed_json['timezone'];
+		var latitude = parsed_json["coord"]["lat"];
+		var longitude = parsed_json["coord"]["lon"];
+		
+		// set states for fields so they could be rendered later on
+		this.setState({
+			locate: location,
+			temp: temp_c,
+			cond: conditions,
+			image: icon,
+			max: max,
+			min: min,
+			timezone : timezone,
+			lat : latitude,
+			lon : longitude
+		});
+		document.getElementById('IMG').src = 'https://openweathermap.org/img/wn/' + this.state.image +'@2x.png';
+		console.log(document.getElementById('IMG').src);
+		document.getElementById('background').style.backgroundImage =  "url(../../assets/backgrounds/" + this.pickBackground() + ".jpg)";
+
+		this.fetchHourly(this.state.lat, this.state.lon);
 	}
 
 	//function to deal with the hourly openweather API call
@@ -298,227 +520,5 @@ export default class Iphone extends Component {
 
 		document.getElementById('day7').src = 'https://openweathermap.org/img/wn/' + this.state.di7 +'@2x.png';
 		console.log(document.getElementById('day7').src);
-  }
-
-	parseResponse = (parsed_json) => {
-		var location = parsed_json['name'];
-		var temp_c = Math.round(parsed_json['main']['temp']);
-		var conditions = parsed_json['weather']['0']['description'];
-		var icon = parsed_json['weather']['0']['icon'];
-		var max = Math.round(parsed_json['main']['temp_max']);
-		var min = Math.round(parsed_json['main']['temp_min']);
-		var timezone = parsed_json['timezone'];
-		var latitude = parsed_json["coord"]["lat"];
-		var longitude = parsed_json["coord"]["lon"];
-		
-		// set states for fields so they could be rendered later on
-		this.setState({
-			locate: location,
-			temp: temp_c,
-			cond: conditions,
-			image: icon,
-			max: max,
-			min: min,
-			timezone : timezone,
-			lat : latitude,
-			lon : longitude
-		});
-		document.getElementById('IMG').src = 'https://openweathermap.org/img/wn/' + this.state.image +'@2x.png';
-		console.log(document.getElementById('IMG').src);
-		document.getElementById('background').style.backgroundImage =  "url(../../assets/backgrounds/" + this.pickBackground() + ".jpg)";
-
-		this.fetchHourly(this.state.lat, this.state.lon);
-	}
-
-	//checking time of day for greeting
-	isDay() {
-		if (!!this.state.timezone){
-			var utc = Date.now() + (new Date().getTimezoneOffset()*60000) + (1000 * this.state.timezone);
-			var fullDate = new Date(utc);
-			var hour = fullDate.getHours();
-			return (hour > 5 && hour < 17);
-		} else {
-			var utc = Date.now() + (new Date().getTimezoneOffset()*60000) + (1000 );
-			var fullDate = new Date(utc);
-			var hour = fullDate.getHours();
-			return (hour > 5 && hour < 17);
-		}
-	}
-
-	//Choosing the greeting message based on time
-	whatGreeting(){
-		if (!(this.isDay())){
-			return greetings[0];
-		}
-		else{
-			return greetings[1];
-		}
-	}
-
-	//function for formatting date
-	formatDate = (date) => {
-		var hours = date.getHours();
-		var ampm = hours >= 12 ? 'pm' : 'am';
-		hours = hours % 12;
-		hours = hours ? hours : 12;
-		var strTime = hours + ' ' + ampm;
-		return strTime;
-	}
-
-	pickBackground() {
-		if (!(this.isDay())){
-			return bg[1];
-		}
-		else if (this.state.cond.includes("rain") || this.state.cond.includes("drizzle")){
-			return bg[0]
-		}
-		else if (this.state.cond.includes("snow")){
-			return bg[4]
-		}
-		else if (this.state.cond.includes("sun") || this.state.cond.includes("clear")){
-			return bg[2]
-		}
-		else if (this.state.cond.includes("cloud") || this.state.cond.includes("mist")){
-			return bg[3]
-		}
-	}
-
-	// the main render method for the iphone component
-	render() {
-		// check if temperature data is fetched, if so add the sign styling to the page
-		const tempStyles = this.state.temp ? `${style.temperature} ${style.filled}` : style.temperature;
-		// display all weather data
-		return (
-
-			
-			<div class={ style.container } id = "background">
-					<div class={style.searchbar}><SearchBar class="search-bar" enterFunction={ e => this.fetchWeatherData2(e.target.value)}/></div>
-					<div class={ style.city }>{ this.state.locate }</div>
-					<div class= { style.greetings }>
-						<h1>{this.whatGreeting()}</h1>
-						<h2>Current conditions are {this.state.cond}</h2>
-					</div>
-					<div class={style.city}>
-						<img id = 'IMG'/>
-					</div>
-					<div class={ style.header }>
-						<span class={ tempStyles }>{ this.state.temp }</span>
-						<div class={ style.details}>
-							<p><img id = 'dmain' src = "../../assets/icons/down1.png"/>  {this.state.min}° <img id = 'umain' src = "../../assets/icons/up1.png"/>  {this.state.max}°</p>
-						</div>
-					</div>
-					<div class = {style.timeContainer}>
-						<div class = {style.time}>
-							<p>{this.state.time1}</p>
-							<img id = "hour1"/>
-							<p>{this.state.HT1}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time2}</p>
-							<img id = "hour2"/>
-							<p>{this.state.HT2}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time3}</p>
-							<img id = "hour3"/>
-							<p>{this.state.HT3}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time4}</p>
-							<img id = "hour4"/>
-							<p>{this.state.HT4}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time5}</p>
-							<img id = "hour5"/>
-							<p>{this.state.HT5}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time6}</p>
-							<img id = "hour6"/>
-							<p>{this.state.HT6}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time7}</p>
-							<img id = "hour7"/>
-							<p>{this.state.HT7}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time8}</p>
-							<img id = "hour8"/>
-							<p>{this.state.HT8}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time9}</p>
-							<img id = "hour9"/>
-							<p>{this.state.HT9}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.time10}</p>
-							<img id = "hour10"/>
-							<p>{this.state.HT10}°</p>
-						</div>
-					</div>
-					<div class = {style.timeContainer}>
-						<div class ={style.info}>
-							<p>Percipitation: {this.state.percipitation}%</p>
-							<p>Wind: {this.state.wind} mps</p>
-							<p>UV index: {this.state.uv}</p>
-							<p>Humidity: {this.state.humidity}%</p>
-						</div>
-						<div class ={style.infoInner}>
-							<p>Air pressure: {this.state.pressure} hPa</p>
-							<p>Clouds: {this.state.clouds}%</p>
-							<p>Visibility: {this.state.visibility}m</p>
-							<p>Dew point: {this.state.dew}°</p>
-						</div>
-					</div>
-					<div class = {style.timeContainer}>
-						<div class = {style.time}>
-							<p id ="more">{this.state.dow1}</p>
-							<img id = "day1"/>
-							<p><img id = "up2" src='../../assets/icons/up1.png'/> {this.state.d1max}°</p>
-							<p><img id = "down2" src='../../assets/icons/down1.png'/> {this.state.d1min}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow2}</p>
-							<img id = "day2"/>
-							<p><img id = "up3" src='../../assets/icons/up1.png'/> {this.state.d2max}°</p>
-							<p><img id = "down3" src='../../assets/icons/down1.png'/> {this.state.d2min}°</p>	
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow3}</p>
-							<img id = "day3"/>
-							<p><img id = "up4" src='../../assets/icons/up1.png'/> {this.state.d3max}°</p>
-							<p><img id = "down4" src='../../assets/icons/down1.png'/> {this.state.d3min}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow4}</p>
-							<img id = "day4"/>
-							<p><img id = "up5" src='../../assets/icons/up1.png'/> {this.state.d4max}°</p>
-							<p><img id = "down5" src='../../assets/icons/down1.png'/> {this.state.d4min}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow5}</p>
-							<img id = "day5"/>
-							<p><img id = "up6" src='../../assets/icons/up1.png'/> {this.state.d5max}°</p>
-							<p><img id = "down6" src='../../assets/icons/down1.png'/> {this.state.d5min}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow6}</p>
-							<img id = "day6"/>
-							<p><img id = "up7" src='../../assets/icons/up1.png'/> {this.state.d6max}°</p>
-							<p><img id = "down7" src='../../assets/icons/down1.png'/> {this.state.d6min}°</p>
-						</div>
-						<div class = {style.time}>
-							<p>{this.state.dow7}</p>
-							<img id = "day7"/>
-							<p><img id = "up8" src='../../assets/icons/up1.png'/> {this.state.d7max}°</p>
-							<p><img id = "down8" src='../../assets/icons/down1.png'/> {this.state.d7min}°</p>
-						</div>
-					</div>
-					<div class={ style.details }></div>
-			</div>
-		);
-	}
+    }
 }

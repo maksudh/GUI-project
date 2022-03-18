@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
 		}
 		return (
 			<div>
-				<input style="height:35px;width:300px;font-size:14pt;text-align:center" type = "text" placeholder = "Enter your city" onKeyDown = {enterFunction}></input>
+				<input style="height:35px;width:300px;font-size:14pt;text-align:left" type = "text" placeholder = "Enter your city" onKeyDown = {enterFunction}></input>
 			</div>
 		);
 	}
